@@ -4,11 +4,12 @@ MAINTAINER	Julian Haupt <julian.haupt@hauptmedia.de>
 ENV		GSALES_VERSION gsales2-rev1082-php54
 ENV		ZENDGUARDLOADER_VERSION ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64
 
+ENV		GSALES_HOME /var/www/gsales
 ENV		DEBIAN_FRONTEND noninteractive
 
 # install dependencies
 RUN		apt-get update -qq && \
-    		apt-get install -y --no-install-recommends curl apache2 php5 php5-mysql && \
+    		apt-get install -y --no-install-recommends curl apache2 php5 php5-mysql pwgen && \
 		apt-get clean autoclean && \
 		apt-get autoremove --yes && \ 
 		rm -rf /var/lib/{apt,dpkg,cache,log}/
@@ -20,11 +21,18 @@ RUN		curl -L --silent http://downloads.zend.com/guard/6.0.0/${ZENDGUARDLOADER_VE
 		rm -rf /tmp/*
 
 # install gsales
-RUN		mkdir /var/www/gsales && \
-		curl -L --silent http://www.gsales.de/download/${GSALES_VERSION}.tar.gz | tar -xz --strip=1 -C /var/www/gsales && \
-		sed -i -e"s/\/var\/www/\/var\/www\/gsales/" /etc/apache2/sites-available/default
+RUN		mkdir ${GSALES_HOME} && \
+		curl -L --silent http://www.gsales.de/download/${GSALES_VERSION}.tar.gz | tar -xz --strip=1 -C ${GSALES_HOME} && \
+		sed -i -e"s|/var/www|${GSALES_HOME}|g" /etc/apache2/sites-available/default && \
+		cp ${GSALES_HOME}/lib/inc.cfg.dist.php ${GSALES_HOME}/lib/inc.cfg.php && \
+		chown -R www-data:www-data ${GSALES_HOME}/lib/inc.cfg.php && \
+		chmod 600 ${GSALES_HOME}/lib/inc.cfg.php
 
 EXPOSE		80	
 
-VOLUME		["/var/log/apache2", "/var/www/gsales/DATA"]
+COPY		docker-entrypoint.sh	/usr/local/sbin/docker-entrypoint.sh
+
+
+ENTRYPOINT	["/usr/local/sbin/docker-entrypoint.sh"]
+VOLUME		["/var/log/apache2"]
 CMD		["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
