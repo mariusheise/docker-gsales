@@ -14,7 +14,8 @@ RUN		apt-get update -qq && \
 # integrate ZendGuardLoader
 RUN		curl -L --silent http://downloads.zend.com/guard/6.0.0/${ZENDGUARDLOADER_VERSION}.tar.gz | tar -xz --strip=1 -C /tmp && \
 		cp /tmp/php-5.4.x/ZendGuardLoader.so /usr/lib/php5/20100525/ && \
-		echo "extension=ZendGuardLoader.so\n" >/etc/php5/conf.d/00-zendguardloader.ini
+		echo "extension=ZendGuardLoader.so\n" >/etc/php5/conf.d/00-zendguardloader.ini && \
+		rm -rf /tmp/*
 
 # install gsales
 RUN		mkdir /var/www/gsales && \
