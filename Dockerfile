@@ -4,6 +4,8 @@ MAINTAINER	Julian Haupt <julian.haupt@hauptmedia.de>
 ENV		GSALES_VERSION gsales2-rev1082-php54
 ENV		ZENDGUARDLOADER_VERSION ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64
 
+ENV		DEBIAN_FRONTEND noninteractive
+
 # install dependencies
 RUN		apt-get update -qq && \
     		apt-get install -y --no-install-recommends curl apache2 php5 php5-mysql && \
