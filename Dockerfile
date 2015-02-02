@@ -9,7 +9,7 @@ ENV		DEBIAN_FRONTEND noninteractive
 
 # install dependencies
 RUN		apt-get update -qq && \
-    		apt-get install -y --no-install-recommends curl apache2 php5 php5-mysql pwgen && \
+    		apt-get install -y --no-install-recommends curl apache2 php5 php5-mysql pwgen mysql-client && \
 		apt-get clean autoclean && \
 		apt-get autoremove --yes && \ 
 		rm -rf /var/lib/{apt,dpkg,cache,log}/
@@ -23,10 +23,7 @@ RUN		curl -L --silent http://downloads.zend.com/guard/6.0.0/${ZENDGUARDLOADER_VE
 # install gsales
 RUN		mkdir ${GSALES_HOME} && \
 		curl -L --silent http://www.gsales.de/download/${GSALES_VERSION}.tar.gz | tar -xz --strip=1 -C ${GSALES_HOME} && \
-		sed -i -e"s|/var/www|${GSALES_HOME}|g" /etc/apache2/sites-available/default && \
-		cp ${GSALES_HOME}/lib/inc.cfg.dist.php ${GSALES_HOME}/lib/inc.cfg.php && \
-		chown -R www-data:www-data ${GSALES_HOME}/lib/inc.cfg.php && \
-		chmod 600 ${GSALES_HOME}/lib/inc.cfg.php
+		sed -i -e"s|/var/www|${GSALES_HOME}|g" /etc/apache2/sites-available/default
 
 EXPOSE		80	
 
@@ -34,5 +31,5 @@ COPY		docker-entrypoint.sh	/usr/local/sbin/docker-entrypoint.sh
 
 
 ENTRYPOINT	["/usr/local/sbin/docker-entrypoint.sh"]
-VOLUME		["/var/log/apache2"]
+VOLUME		["/var/log/apache2", "${GSALES_HOME}/lib/inc.cfg.php"]
 CMD		["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
