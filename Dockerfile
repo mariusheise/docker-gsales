@@ -9,7 +9,7 @@ ENV		DEBIAN_FRONTEND noninteractive
 
 # install dependencies
 RUN		apt-get update -qq && \
-    		apt-get install -y --no-install-recommends curl apache2 php5 php5-mysql pwgen mysql-client && \
+    		apt-get install -y --no-install-recommends curl apache2 php5 php5-mysql php5-curl pwgen mysql-client && \
 		apt-get clean autoclean && \
 		apt-get autoremove --yes && \ 
 		rm -rf /var/lib/{apt,dpkg,cache,log}/
