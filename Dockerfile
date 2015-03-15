@@ -39,5 +39,5 @@ COPY		docker-entrypoint.sh	/usr/local/sbin/docker-entrypoint.sh
 
 
 ENTRYPOINT	["/usr/local/sbin/docker-entrypoint.sh"]
-VOLUME		["/var/log/apache2", "${GSALES_HOME}/lib/inc.cfg.php"]
+VOLUME		["${GSALES_HOME}/DATA"]
 CMD		["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
