@@ -23,6 +23,8 @@ CREATE USER 'gsales'@'%' IDENTIFIED BY 'PypbytNag9' ;
 GRANT ALL ON gsales.* TO 'gsales'@'%' WITH GRANT OPTION ;
 ```
 
+Run the gsales container
+
 ```bash
 docker run -d \
 --link gsales-mysql:mysql \
