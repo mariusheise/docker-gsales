@@ -1,4 +1,4 @@
-FROM		hauptmedia/php:5.6-apache-sapi
+FROM		hauptmedia/php-web:5.6-apache-sapi
 MAINTAINER	Julian Haupt <julian.haupt@hauptmedia.de>
 
 ENV		GSALES_VERSION gsales2-rev1100-php56
