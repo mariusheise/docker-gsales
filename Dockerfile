@@ -1,7 +1,7 @@
 FROM		hauptmedia/php-web:5.6-apache-sapi
 MAINTAINER	Julian Haupt <julian.haupt@hauptmedia.de>
 
-ENV		GSALES_VERSION gsales2-rev1114-php56
+ENV		GSALES_VERSION gsales2-rev1121-php56
 ENV		GSALES_HOME /var/www/gsales
 
 # enable zend_guard_loader
