@@ -1,6 +1,6 @@
 # docker-gsales
 
-This is docker container for running gsales (see www.gales.de)
+This is docker container for running gsales (see www.gsales.de)
 
 ## Example
 
