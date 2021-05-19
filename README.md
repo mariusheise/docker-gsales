@@ -34,5 +34,5 @@ docker run -d \
 -e MYSQL_PASSWORD=xyz \
 -v /path/to/volume/DATA:/var/www/gsales/DATA \
 -p 8080:80 \
-hauptmedia/gsales
+mariusheise/gsales
 ```

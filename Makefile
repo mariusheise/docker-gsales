@@ -1,4 +1,4 @@
 build:
-	docker build -t="hauptmedia/gsales" .
+    docker build -t="mariusheise/gsales" .
 
 .PHONY: build

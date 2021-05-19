@@ -2,8 +2,8 @@
 set -e
 
 if [ -e  ${GSALES_HOME}/lib/inc.cfg.php ]; then
-	exec "$@"
-	exit 0
+    exec "$@"
+    exit 0
 fi
 
 if [ -n "$MYSQL_HOST" ] && [ -n "$MYSQL_USER" ] && [ -n "$MYSQL_PASSWORD" ] && [ -n "$MYSQL_DATABASE" ]; then
@@ -24,4 +24,3 @@ chmod 600 ${GSALES_HOME}/lib/inc.cfg.php
 fi
 
 exec "$@"
-
